@@ -6,6 +6,7 @@ print("Loading Fashion Product Images dataset...")
 dataset = load_dataset(
     "ashraq/fashion-product-images-small",
     split="train"
+    
 )
 
 print("Dataset loaded!")

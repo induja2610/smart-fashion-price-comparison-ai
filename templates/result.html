@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fashion Analysis Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>Fashion Analysis Result</h1>
+        <p>Smart Fashion Price Comparison Using AI</p>
+    </header>
+
+    <main>
+
+        <section class="upload-section">
+
+            <h2>AI Prediction</h2>
+
+            <div class="result-box">
+
+                <p>
+                    <strong>Category:</strong>
+                    <span id="category">T-Shirt</span>
+                </p>
+
+                <p>
+                    <strong>Gender:</strong>
+                    <span id="gender">Men</span>
+                </p>
+
+            </div>
+
+            <h2>Price Comparison</h2>
+
+            <div id="prices">
+
+                <div class="price-card">
+                    <h3>Store A</h3>
+                    <p>₹799</p>
+                    <button>View Product</button>
+                </div>
+
+                <div class="price-card">
+                    <h3>Store B</h3>
+                    <p>₹699</p>
+                    <button>View Product</button>
+                </div>
+
+                <div class="price-card">
+                    <h3>Store C</h3>
+                    <p>₹849</p>
+                    <button>View Product</button>
+                </div>
+
+            </div>
+
+            <h2>
+                Lowest Price:
+                <span>₹699</span>
+            </h2>
+
+            <br>
+
+            <button onclick="window.location.href='/'">
+                Compare Another Image
+            </button>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Smart Fashion Price Comparison Using AI</p>
+    </footer>
+
+</body>
+
+</html>git push
+</html>
