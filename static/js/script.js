@@ -18,3 +18,18 @@ imageInput.addEventListener("change", function () {
 
     status.textContent = "Image selected successfully.";
 });
+
+const compareButton = document.getElementById("compareButton");
+
+compareButton.addEventListener("click", function () {
+
+    const file = imageInput.files[0];
+
+    if (!file) {
+        status.textContent = "Please select an image first.";
+        return;
+    }
+
+    status.textContent = "Image ready for analysis.";
+
+});
