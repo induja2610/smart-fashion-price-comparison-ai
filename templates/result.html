@@ -1,11 +1,9 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Fashion Analysis Result</title>
 
     <link rel="stylesheet"
@@ -13,76 +11,112 @@
 </head>
 
 <body>
-
     <header>
         <h1>Fashion Analysis Result</h1>
         <p>Smart Fashion Price Comparison Using AI</p>
     </header>
 
     <main>
-
         <section class="upload-section">
-
             <h2>AI Prediction</h2>
 
             <div class="result-box">
-
-                <p>
-                    <strong>Category:</strong>
-                    <span id="category">T-Shirt</span>
-                </p>
-
-                <p>
-                    <strong>Gender:</strong>
-                    <span id="gender">Men</span>
-                </p>
-
+                <p><strong>Category:</strong> <span id="category">Loading...</span></p>
+                <p><strong>Confidence:</strong> <span id="confidence">Loading...</span></p>
             </div>
 
-            <h2>Price Comparison</h2>
+            <h2>Product Price Comparison</h2>
+            <div id="prices"></div>
 
-            <div id="prices">
-
-                <div class="price-card">
-                    <h3>Store A</h3>
-                    <p>₹799</p>
-                    <button>View Product</button>
-                </div>
-
-                <div class="price-card">
-                    <h3>Store B</h3>
-                    <p>₹699</p>
-                    <button>View Product</button>
-                </div>
-
-                <div class="price-card">
-                    <h3>Store C</h3>
-                    <p>₹849</p>
-                    <button>View Product</button>
-                </div>
-
-            </div>
-
-            <h2>
-                Lowest Price:
-                <span>₹699</span>
-            </h2>
+            <h2>Lowest Price: <span id="lowestPrice">Loading...</span></h2>
 
             <br>
-
             <button onclick="window.location.href='/'">
                 Compare Another Image
             </button>
-
         </section>
-
     </main>
 
     <footer>
         <p>Smart Fashion Price Comparison Using AI</p>
     </footer>
 
+    <script>
+        const savedResult = localStorage.getItem("fashionResult");
+        const result = savedResult ? JSON.parse(savedResult) : null;
+
+        const categoryElement = document.getElementById("category");
+        const confidenceElement = document.getElementById("confidence");
+        const pricesContainer = document.getElementById("prices");
+        const lowestPriceElement = document.getElementById("lowestPrice");
+
+        if (!result) {
+            categoryElement.textContent = "No result found. Please upload an image again.";
+            confidenceElement.textContent = "-";
+            lowestPriceElement.textContent = "Not available";
+        } else {
+            categoryElement.textContent = result.predicted_category || "Unknown";
+
+            const confidence = Number(result.confidence);
+            confidenceElement.textContent = Number.isFinite(confidence)
+                ? confidence.toFixed(2) + "%"
+                : "Not available";
+
+            const products = Array.isArray(result.prices) ? result.prices : [];
+            let lowestPrice = Infinity;
+
+            if (products.length === 0) {
+                pricesContainer.textContent = "No products found. Please try again.";
+            }
+
+            products.forEach(function (item) {
+                const card = document.createElement("div");
+                card.className = "price-card";
+
+                const title = document.createElement("h3");
+                title.textContent = item.title || item.store || "Fashion product";
+                card.appendChild(title);
+
+                const store = document.createElement("p");
+                store.textContent = "Store: " + (item.store || "Unknown");
+                card.appendChild(store);
+
+                const rawPrice = item.price;
+                const numericPrice = typeof rawPrice === "number"
+                    ? rawPrice
+                    : Number(String(rawPrice || "").replace(/[₹,\s]/g, ""));
+
+                const price = document.createElement("p");
+
+                if (Number.isFinite(numericPrice) && numericPrice > 0) {
+                    price.textContent = "Price: ₹" + numericPrice;
+                    lowestPrice = Math.min(lowestPrice, numericPrice);
+                } else {
+                    price.textContent = "Price: " + (rawPrice || "Not available");
+                }
+
+                card.appendChild(price);
+
+                const link = item.url;
+
+                if (link && /^https?:\/\//i.test(link)) {
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.textContent = "View Product";
+                    button.addEventListener("click", function () {
+                        window.open(link, "_blank", "noopener,noreferrer");
+                    });
+                    card.appendChild(button);
+                }
+
+                pricesContainer.appendChild(card);
+            });
+
+            lowestPriceElement.textContent = Number.isFinite(lowestPrice)
+                ? "₹" + lowestPrice
+                : "Not available";
+        }
+    </script>
 </body>
-
-
 </html>
+```

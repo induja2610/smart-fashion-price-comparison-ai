@@ -4,7 +4,9 @@ CLASS_NAMES = [
     "tshirt_men",
     "tshirt_women",
     "tshirt_kids_boy",
-    "tshirt_kids_girl"
+    "tshirt_kids_girl",
+    "footwear",
+    "skincare"
 ]
 
 NUM_CLASSES = len(CLASS_NAMES)
