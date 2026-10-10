@@ -1,8 +1,9 @@
+
 Flask
-tensorflow
 Pillow
 numpy
 requests
 python-dotenv
 gunicorn
 gdown
+ai-edge-litert
