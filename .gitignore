@@ -1,5 +1,13 @@
 venv/
-.env
 .venv/
+.venv-1/
+.env
 uploads/
 __pycache__/
+*.pyc
+fashion_model.keras
+dataset_clean/
+.postman/
+postman/
+test_serpapi.py
+download_skincare.txt
