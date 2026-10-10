@@ -4,7 +4,10 @@ from tensorflow import keras
 from model_config import CLASS_NAMES
 
 
-MODEL_PATH = "fashion_model.keras"
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "fashion_model.keras")
 IMAGE_SIZE = (224, 224)
 
 
